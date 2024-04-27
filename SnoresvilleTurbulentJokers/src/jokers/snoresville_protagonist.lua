@@ -15,8 +15,8 @@ local function calculate_protagonist_multiplier(card_object)
 
     return math.abs(
         x_mult_gain *
-        x_mult_gain *
         (position - 1) *
+        x_mult_gain *
         (total - position))
 end
 
@@ -52,7 +52,7 @@ local joker = {
             }
         end,
         calculate = function(self, context)
-            if SMODS.end_calculate_context(context) then
+            if SMODS.end_calculate_context(context) and context.full_hand then
                 local final_multiplier = calculate_protagonist_multiplier(self)
                 return {
                     Xmult_mod = final_multiplier,

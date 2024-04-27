@@ -40,7 +40,7 @@ local joker = {
                     card = self
                 }
             end
-            if context.cardarea == G.jokers and context.joker_main then
+            if context.cardarea == G.jokers and context.before then
                 for i = 1, #context.full_hand do
                     local card = context.full_hand[i]
                     local destroyed = true
@@ -64,7 +64,7 @@ local joker = {
                                 if card and not card.shattered and not card.destroyed then
                                     card.destroyed = true
                                     card:start_dissolve()
-                                    card_eval_status_text(self, 'extra', nil, nil, nil, {
+                                    card_eval_status_text(card, 'extra', nil, nil, nil, {
                                         message = "Smoked",
                                         colour = G.C.RED,
                                         instant = true

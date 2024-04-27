@@ -6,6 +6,7 @@ local joker = {
     slug = joker_name,
     config = {},
     spritePos = {x = 0, y = 0},
+    soulPos = nil, -- {x = 1, y = 0}
     loc_txt = {
         name = "Joker Name Here",
         text = {
@@ -26,7 +27,7 @@ local joker = {
             return {}
         end,
         calculate = function(self, context)
-            if SMODS.end_calculate_context(context) then
+            if SMODS.end_calculate_context(context) and context.full_hand then
                 -- return {
                 --     message = localize{type='variable',key='a_mult',vars={bonus_mult}},
                 --     mult_mod = bonus_mult

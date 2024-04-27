@@ -13,7 +13,7 @@ local joker = {
         }
     },
     rarity = 3,
-    cost = 7,
+    cost = 5,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,

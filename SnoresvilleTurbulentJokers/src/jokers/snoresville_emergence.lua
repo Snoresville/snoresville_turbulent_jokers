@@ -1,8 +1,27 @@
 local joker_name = "Emergence"
-local upgrade_message = "Emerge"
-local broken_message = "Broken"
+local upgrade_message = "Emerge!"
+local broken_message = "Broken..."
 
 local EMERGENCE_BREAK_DENOMINATOR = 8
+local metamorphosis_value_scaling = {
+    ["A"] = '2',
+
+    ["2"] = '5',
+    ["3"] = '5',
+    ["4"] = '5',
+
+    ["5"] = '8',
+    ["6"] = '8',
+    ["7"] = '8',
+
+    ["8"] = 'T',
+    ["9"] = 'T',
+
+    ["T"] = 'J',
+    ["J"] = 'Q',
+    ["Q"] = 'K',
+    ["K"] = 'K',
+}
 
 local get_card_value_code = function(card)
     return (card.base.value == 'Ace' and 'A') or

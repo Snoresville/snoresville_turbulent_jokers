@@ -63,7 +63,7 @@ local joker = {
                     end
                 end
             end
-            if SMODS.end_calculate_context(context) then
+            if SMODS.end_calculate_context(context) and context.full_hand then
                 if self.ability.extra.pi_index > 0 then
                     return {
                         Xmult_mod = mult_x_base + mult_x_gain * self.ability.extra.pi_index,

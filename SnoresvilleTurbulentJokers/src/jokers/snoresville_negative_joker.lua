@@ -27,7 +27,7 @@ local joker = {
         calculate = function(self, context)
             -- if else if else if else if else if else in state_events.lua
             -- this function is a god send
-            if SMODS.end_calculate_context(context) then
+            if SMODS.end_calculate_context(context) and context.full_hand then
                 return {
                     message = localize{type='variable',key='a_mult',vars={bonus_mult}},
                     mult_mod = bonus_mult
