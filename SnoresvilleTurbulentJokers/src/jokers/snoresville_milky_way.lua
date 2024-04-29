@@ -8,7 +8,7 @@ local joker = {
         text = {
             "When playing a hand,",
             "set the played poker hand's {C:attention}level{}",
-            "equal to the {C:attention}sum of all other poker hands{}",
+            "equal to the {C:attention}sum of all other poker hands' levels{}",
             "contained in the full hand."
         }
     },

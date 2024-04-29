@@ -24,7 +24,7 @@ local joker = {
             "At the start of a blind,",
             "fight another {C:attention}#2#{},",
             "and double the {C:blue}Chips{}",
-            "{C:inactive}(Currently {C:blue}+#3# chips{C:inactive})",
+            "{C:inactive}(Currently {C:blue}+#3# Chips{C:inactive})",
         }
     },
     rarity = 1,

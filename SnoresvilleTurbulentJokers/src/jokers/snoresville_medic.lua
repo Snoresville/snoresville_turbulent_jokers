@@ -7,7 +7,7 @@ local joker = {
     config = {},
     spritePos = {x = 0, y = 0},
     loc_txt = {
-        name = "Medic",
+        name = "Field Doctor",
         text = {
             "At the start of a blind,",
             "gain hands based on",

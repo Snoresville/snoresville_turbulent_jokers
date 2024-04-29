@@ -34,7 +34,7 @@ local joker = {
         text = {
             "Count other Jokers as {X:mult,C:white}X#1#{} Mult.",
             "Total the left and right sides separately",
-            "and {C:attention}multiply{} them together. Gain that amount.",
+            "and {C:attention}multiply{} them together. Score that amount.",
             "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
         }
     },
