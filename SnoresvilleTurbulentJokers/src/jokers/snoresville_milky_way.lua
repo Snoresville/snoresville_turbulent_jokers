@@ -6,9 +6,9 @@ local joker = {
     loc_txt = {
         name = "Milky Way",
         text = {
-            "When playing a hand,",
-            "set the played poker hand's {C:attention}level{}",
-            "equal to the {C:attention}sum of all other poker hands' levels{}",
+            "When playing a hand, set the",
+            "played poker hand's {C:attention}level{} equal to the ",
+            "{C:attention}sum of all other poker hands' levels + 1{}",
             "contained in the full hand."
         }
     },

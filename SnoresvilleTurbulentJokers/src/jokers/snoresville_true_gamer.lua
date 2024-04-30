@@ -1,4 +1,3 @@
--- used to template
 local joker_name = "snoresville_true_gamer"
 local display_name = "True Gamer"
 local beaten_message = "Beaten!"
@@ -20,11 +19,10 @@ local joker = {
     loc_txt = {
         name = display_name,
         text = {
-            "{C:blue}+#1# Chips{}",
             "At the start of a blind,",
-            "fight another {C:attention}#2#{},",
-            "and double the {C:blue}Chips{}",
-            "{C:inactive}(Currently {C:blue}+#3# Chips{C:inactive})",
+            "fight another {C:attention}#1#{},",
+            "and double the {C:blue}Chips{} scored",
+            "{C:inactive}(Currently {C:blue}+#2# Chips{C:inactive})",
         }
     },
     rarity = 1,
@@ -35,7 +33,7 @@ local joker = {
     eternal_compat = true,
     functions = {
         loc_def = function(self)
-            return {base_chips, display_name, current_chips(self.ability.extra.players_beaten)}
+            return {display_name, current_chips(self.ability.extra.players_beaten)}
         end,
         calculate = function(self, context)
             if context.setting_blind and not context.blueprint and not self.getting_sliced then

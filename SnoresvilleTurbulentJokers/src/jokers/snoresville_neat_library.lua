@@ -1,6 +1,5 @@
--- used to template
 local joker_internal_name = "snoresville_neat_library"
-local joker_display_name = "Neat Library"
+local joker_display_name = "Ordered Library"
 
 local joker = {
     name = joker_internal_name,

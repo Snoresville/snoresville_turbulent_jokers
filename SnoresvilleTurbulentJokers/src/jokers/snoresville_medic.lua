@@ -1,6 +1,12 @@
 local joker_name = "snoresville_medic"
 local hands_increase_pct = 50
 
+local function get_overheal_bonus()
+    local base_amount = (G.GAME and G.GAME.round_resets and G.GAME.round_resets.hands) or 0
+    local amount = math.ceil(base_amount * (hands_increase_pct / 100))
+    return amount
+end
+
 local joker = {
     name = joker_name,
     slug = joker_name,
@@ -8,14 +14,8 @@ local joker = {
     spritePos = {x = 0, y = 0},
     loc_txt = {
         name = "Field Doctor",
-        text = {
-            "At the start of a blind,",
-            "gain hands based on",
-            "{C:blue}#1#%{} of the base hands,",
-            "rounded up"
-        }
     },
-    rarity = 2,
+    rarity = 1,
     cost = 6,
     unlocked = true,
     discovered = true,
@@ -23,11 +23,11 @@ local joker = {
     eternal_compat = true,
     functions = {
         loc_def = function(self)
-            return {hands_increase_pct}
+            return {hands_increase_pct, get_overheal_bonus()}
         end,
         calculate = function(self, context)
             if context.setting_blind then
-                local amount = math.ceil(G.GAME.round_resets.hands * (hands_increase_pct / 100))
+                local amount = get_overheal_bonus()
                 ease_hands_played(amount)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
@@ -44,6 +44,14 @@ local joker = {
             end
         end
     },
+}
+
+joker.loc_txt.text = {
+    "At the start of a blind,",
+    "gain hands based on",
+    "{C:blue}#1#%{} of the base hands,",
+    "rounded up",
+    "{C:inactive}(Currently {C:blue}+#2# hands{C:inactive})"
 }
 
 return joker

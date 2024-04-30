@@ -18,6 +18,7 @@ local jokers = {
     joker("snoresville_true_gamer"),
     joker("snoresville_seasonings"),
     joker("snoresville_neat_library"),
+    joker("snoresville_vault")
 }
 
 return jokers

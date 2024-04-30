@@ -1,4 +1,3 @@
--- used to template
 local joker_name = "snoresville_logistics"
 
 local joker = {
