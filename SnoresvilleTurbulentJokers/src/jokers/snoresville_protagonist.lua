@@ -30,7 +30,7 @@ local joker = {
     },
     spritePos = {x = 0, y = 0},
     loc_txt = {
-        name = "The Protagonist",
+        name = "Protagonist",
         text = {
             "Count other Jokers as {X:mult,C:white}X#1#{} Mult.",
             "Total the left and right sides separately",
