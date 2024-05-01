@@ -1,10 +1,24 @@
 # Snoresville's Turbulent Jokers
 
-Powerful jokers that ask a lot and then give great returns.
+they are good jokers
+
+## Overview
+
+-   15 Jokers (6 Common, 5 Uncommon, 3 Rare, 1 Legendary)
+-   6 Decks that revolve around some of the Jokers
+
+[Preview the mod in this repo's website](https://snoresville.github.io/snoresville_turbulent_jokers/)
+
+## Credits
+
+-   notmario for the website template
+-   Balatro modding community for their wealth of knowledge
+-   Online stuff that I traced/inserted into the Joker art because I'm honestly not good at art
+-   You, if you played the game with this mod
 
 ## How to install this mod
 
-0. This is a Steamodded mod, install it if you don't have it yet.
+0. This is a Steamodded mod, [install it](https://github.com/Steamopollys/Steamodded/blob/main/README.md#how-to-install-steamodded) if you don't have it yet.
 1. Get the latest from the Releases (can be seen on the right side of this webpage)
 2. Unzip the folder into %appdata%/Balatro/Mods (Create Mods folder if it doesn't exist)
 
