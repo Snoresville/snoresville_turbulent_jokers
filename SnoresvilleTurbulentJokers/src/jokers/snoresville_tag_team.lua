@@ -13,7 +13,7 @@ local joker = {
             "{C:green}#1# in #2# chance{} to",
             "gain a {C:attention}#3#{} for every",
             "{C:attention}two cards{} of the {C:attention}same rank{}",
-            "in a played hand."
+            "contained in a played hand."
         }
     },
     rarity = 2,

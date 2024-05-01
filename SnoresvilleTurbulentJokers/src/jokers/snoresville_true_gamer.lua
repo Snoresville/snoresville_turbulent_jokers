@@ -7,6 +7,43 @@ local function current_chips(players_beaten)
     return base_chips * (2 ^ players_beaten)
 end
 
+local function beat_gamer(self, beating_card)
+    beating_card.getting_sliced = true
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.5,
+        func = function()
+            card_eval_status_text(beating_card, 'extra', nil, nil, nil, {
+                message = beaten_message,
+                colour = G.C.RED,
+                instant = true,
+            })
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.5,
+        func = function()
+            beating_card:shatter()
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.5,
+        func = function()
+            self.ability.extra.players_beaten = self.ability.extra.players_beaten + 1
+            card_eval_status_text(self, 'extra', nil, nil, nil, {
+                message = localize{type = 'variable', key = 'a_chips', vars = {current_chips(self.ability.extra.players_beaten) - current_chips(self.ability.extra.players_beaten - 1)}},
+                colour = G.C.BLUE,
+                instant = true,
+            })
+            return true
+        end
+    }))
+end
+
 local joker = {
     name = joker_name,
     slug = joker_name,
@@ -20,8 +57,9 @@ local joker = {
         name = display_name,
         text = {
             "At the start of a blind,",
-            "fight another {C:attention}#1#{},",
+            "fight all {C:attention}#1#{}s,",
             "and double the {C:blue}Chips{} scored",
+            "for each {C:attention}#1#{} beaten",
             "{C:inactive}(Currently {C:blue}+#2# Chips{C:inactive})",
         }
     },
@@ -38,50 +76,15 @@ local joker = {
         calculate = function(self, context)
             if context.setting_blind and not context.blueprint and not self.getting_sliced then
                 local beating_card = nil
-                for i = #G.jokers.cards, 1, -1 do
+                for i = 1, #G.jokers.cards do
                     local card = G.jokers.cards[i]
                     if card ~= self
                     and not card.ability.eternal
                     and not card.getting_sliced
                     and card.ability.name == joker_name
                     and self.ability.extra.players_beaten >= card.ability.extra.players_beaten then
-                        beating_card = card
-                        break
+                        beat_gamer(self, card)
                     end
-                end
-
-                if beating_card ~= nil then
-                    beating_card.getting_sliced = true
-                    self.ability.extra.players_beaten = self.ability.extra.players_beaten + 1
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.5,
-                        func = function()
-                        card_eval_status_text(beating_card, 'extra', nil, nil, nil, {
-                            message = beaten_message,
-                            colour = G.C.RED,
-                            instant = true,
-                        })
-                        return true
-                    end}))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.5,
-                        func = function()
-                        beating_card:shatter()
-                        return true
-                    end}))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.5,
-                        func = function()
-                        card_eval_status_text(self, 'extra', nil, nil, nil, {
-                            message = localize{type = 'variable', key = 'a_chips', vars = {current_chips(self.ability.extra.players_beaten) - current_chips(self.ability.extra.players_beaten - 1)}},
-                            colour = G.C.BLUE,
-                            instant = true,
-                        })
-                        return true
-                    end}))
                 end
             end
 

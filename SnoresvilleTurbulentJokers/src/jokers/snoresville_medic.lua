@@ -48,10 +48,10 @@ local joker = {
 
 joker.loc_txt.text = {
     "At the start of a blind,",
-    "gain hands based on",
+    "gain extra hands based on",
     "{C:blue}#1#%{} of the base hands,",
     "rounded up",
-    "{C:inactive}(Currently {C:blue}+#2# hands{C:inactive})"
+    "{C:inactive}(Currently {C:blue}+#2# Hands{C:inactive})"
 }
 
 return joker
