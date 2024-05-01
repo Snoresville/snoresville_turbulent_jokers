@@ -21,6 +21,7 @@ they are good jokers
 0. This is a Steamodded mod, [install it](https://github.com/Steamopollys/Steamodded/blob/main/README.md#how-to-install-steamodded) if you don't have it yet.
 1. Get the latest from the Releases (can be seen on the right side of this webpage)
 2. Unzip the folder into %appdata%/Balatro/Mods (Create Mods folder if it doesn't exist)
+3. Enjoy (or not if the mod isn't installed)
 
 ## How to use this repo as a developer
 

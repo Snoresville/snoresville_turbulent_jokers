@@ -154,8 +154,10 @@ let jokers = [
             "into your hand",
             "at the start of the blind",
         ],
-        image_url: "img/j_snoresville_mr_hands.png",
+        soul_bg_image_url: "img/j_snoresville_mr_hands_bg.png",
+        soul_top_image_url: "img/j_snoresville_mr_hands_soul.png",
         rarity: "Legendary",
+        soul: true,
     },
 ];
 
@@ -387,8 +389,12 @@ let add_cards_to_div = (jokers, jokers_div) => {
             joker_div.innerHTML = `
         <h3>${joker.name}</h3>
         <span class="soulholder">
-          <img src="${joker.image_url}" alt="${joker.name}" class="soul-bg" />
-          <img src="${joker.image_url}" alt="${joker.name}" class="soul-top" />
+          <img src="${joker.soul_bg_image_url}" alt="${
+                joker.name
+            }" class="soul-bg" />
+          <img src="${joker.soul_top_image_url}" alt="${
+                joker.name
+            }" class="soul-top" />
         </span>
         <h4 class="rarity" style="background-color: ${
             rarities[joker.rarity]

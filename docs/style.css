@@ -109,10 +109,10 @@ img.hasback {
 }
 @keyframes soul-rotate {
     from {
-        transform: rotateZ(-3deg);
+        transform: rotateZ(-5deg);
     }
     to {
-        transform: rotateZ(3deg);
+        transform: rotateZ(5deg);
     }
 }
 .soul-top {
@@ -122,7 +122,7 @@ img.hasback {
     top: 0;
     left: 0;
     filter: drop-shadow(0px 0px 5px #4f6367);
-    animation: soul-rotate 15s ease-in-out infinite alternate;
+    animation: soul-rotate 5s ease-in-out infinite alternate;
     animation-delay: -7.5s;
 }
 .soul-bg {
