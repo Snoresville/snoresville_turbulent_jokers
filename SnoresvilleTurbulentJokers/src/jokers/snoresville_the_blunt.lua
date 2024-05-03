@@ -17,7 +17,7 @@ local joker = {
         name = "The Blunt",
         text = {
             "Unscored cards are fed into {C:green}The Blunt{}.",
-            "Adds {C:blue}Chips{} and {C:red}Mult{} everytime",
+            "Adds {C:blue}Chips{} and {C:red}Mult{} every time",
             "a card is scored in {C:attention}High Card{} hands.",
             "{C:inactive}(Currently {C:blue}+#1# Chips{C:inactive} and {C:red}+#2# Mult{C:inactive})"
         }

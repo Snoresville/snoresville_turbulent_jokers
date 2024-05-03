@@ -10,6 +10,7 @@ local function get_decks(MOD_ID)
         deck("snoresville_high_deck"),
         deck("snoresville_tag_fanatics"),
         deck("snoresville_ultimate_gamer"),
+        deck("snoresville_pi_delivery"),
     }
 
     return decks

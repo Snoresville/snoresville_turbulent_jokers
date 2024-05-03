@@ -5,7 +5,7 @@ they are good jokers
 ## Overview
 
 -   15 Jokers (6 Common, 5 Uncommon, 3 Rare, 1 Legendary)
--   6 Decks that revolve around some of the Jokers
+-   7 Decks that revolve around some of the Jokers
 
 [Preview the mod in this repo's website](https://snoresville.github.io/snoresville_turbulent_jokers/)
 

@@ -12,8 +12,7 @@ let jokers = [
     {
         name: "Emergence",
         text: [
-            "If a scoring card is not a",
-            "{C:red}Red Seal{} {C:dark_edition}Polychrome{} {C:attention}Steel{} {C:hearts}King of Hearts{},",
+            "If a scoring card is not a {C:red}Red Seal{} {C:dark_edition}Polychrome{} {C:attention}Steel{} {C:hearts}King of Hearts{},",
             "partially transform the card towards it,",
             "{C:green}1 in 8{} chance of breaking the card instead.",
         ],
@@ -33,7 +32,7 @@ let jokers = [
     },
     {
         name: "Negative Joker",
-        text: ["{C:red}+4{} Mult,", "{C:dark_edition}+1{} Joker slot"],
+        text: ["{C:red}-4{} Mult,", "{C:dark_edition}+1{} Joker slot"],
         image_url: "img/j_snoresville_negative_joker.png",
         rarity: "Common",
     },
@@ -52,10 +51,7 @@ let jokers = [
     {
         name: "True Gamer",
         text: [
-            "At the start of a blind,",
-            "fight all {C:attention}True Gamer{}s,",
-            "and double the {C:blue}Chips{} scored",
-            "for each {C:attention}True Gamer{} beaten",
+            "At the start of a blind, fight all {C:attention}True Gamer{}s, and double the {C:blue}Chips{} scored for each {C:attention}True Gamer{} beaten",
             "{C:inactive}(Currently {C:blue}+25 Chips{C:inactive})",
         ],
         image_url: "img/j_snoresville_true_gamer.png",
@@ -64,8 +60,7 @@ let jokers = [
     {
         name: "Ordered Library",
         text: [
-            "Whenever possible, you will",
-            "draw cards of {C:attention}unique rank{}",
+            "Whenever possible, you will draw cards of {C:attention}unique rank{}",
         ],
         image_url: "img/j_snoresville_neat_library.png",
         rarity: "Uncommon",
@@ -73,9 +68,7 @@ let jokers = [
     {
         name: "Pi",
         text: [
-            "This Joker gains {X:mult,C:white}X0.2{} Mult",
-            "every time a scored card's rank",
-            "matches the next rank of Pi.",
+            "This Joker gains {X:mult,C:white}X0.2{} Mult every time a scored card's rank matches the next rank of Pi.",
             "Next ranks are: {C:attention}3, Ace, 4, Ace, 5{}",
             "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
         ],
@@ -96,10 +89,7 @@ let jokers = [
     {
         name: "Tag Team",
         text: [
-            "{C:green}1 in 2 chance{} to",
-            "gain a {C:attention}Double Tag{} for every",
-            "{C:attention}two cards{} of the {C:attention}same rank{}",
-            "contained in a played hand",
+            "{C:green}1 in 2 chance{} to gain a {C:attention}Double Tag{} for every {C:attention}two cards{} of the {C:attention}same rank{} contained in a played hand",
         ],
         image_url: "img/j_snoresville_tag_team.png",
         rarity: "Uncommon",
@@ -107,9 +97,7 @@ let jokers = [
     {
         name: "Vault",
         text: [
-            "After every hand played,",
-            "increase this Joker's sell price",
-            "by {C:attention}2%{}, rounded up",
+            "After every hand played, increase this Joker's sell price by {C:attention}2%{}, rounded up",
             "{C:inactive}(Current interest: {C:money}$1{C:inactive})",
         ],
         image_url: "img/j_snoresville_vault.png",
@@ -118,9 +106,7 @@ let jokers = [
     {
         name: "Logistics",
         text: [
-            "Apply the sum of",
-            "{C:attention}after-hand{} {C:blue}Joker {C:red}Bonuses{}",
-            "every time a card is scored",
+            "Apply the sum of {C:attention}after-hand{} {C:blue}Joker {C:red}Bonuses{} every time a card is scored",
         ],
         image_url: "img/j_snoresville_logistics.png",
         rarity: "Rare",
@@ -128,10 +114,7 @@ let jokers = [
     {
         name: "Milky Way",
         text: [
-            "When playing a hand, set the",
-            "played poker hand's {C:attention}level{} equal to the ",
-            "{C:attention}sum of all other poker hands' levels + 1{}",
-            "contained in the full hand.",
+            "When playing a hand, set the played poker hand's {C:attention}level{} equal to the {C:attention}sum of all other poker hands' levels + 1{} contained in the full hand.",
         ],
         image_url: "img/j_snoresville_milky_way.png",
         rarity: "Rare",
@@ -140,8 +123,7 @@ let jokers = [
         name: "The Blunt",
         text: [
             "Unscored cards are fed into {C:green}The Blunt{}.",
-            "Adds {C:blue}Chips{} and {C:red}Mult{} everytime",
-            "a card is scored in {C:attention}High Card{} hands.",
+            "Adds {C:blue}Chips{} and {C:red}Mult{} every time a card is scored in {C:attention}High Card{} hands.",
             "{C:inactive}(Currently {C:blue}+10 Chips{C:inactive} and {C:red}+1 Mult{C:inactive})",
         ],
         image_url: "img/j_snoresville_the_blunt.png",
@@ -150,9 +132,7 @@ let jokers = [
     {
         name: "Mr. Hands",
         text: [
-            "{C:attention}Draw your entire deck{}",
-            "into your hand",
-            "at the start of the blind",
+            "{C:attention}Draw your entire deck{} into your hand at the start of the blind",
         ],
         soul_bg_image_url: "img/j_snoresville_mr_hands_bg.png",
         soul_top_image_url: "img/j_snoresville_mr_hands_soul.png",
@@ -392,9 +372,11 @@ let add_cards_to_div = (jokers, jokers_div) => {
           <img src="${joker.soul_bg_image_url}" alt="${
                 joker.name
             }" class="soul-bg" />
-          <img src="${joker.soul_top_image_url}" alt="${
+        <div class="soul-top-resize">
+            <img src="${joker.soul_top_image_url}" alt="${
                 joker.name
             }" class="soul-top" />
+        </div>
         </span>
         <h4 class="rarity" style="background-color: ${
             rarities[joker.rarity]

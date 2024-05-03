@@ -54,7 +54,9 @@ local function draw_card_neat_library(from, to, percent, dir, sort, card, delay,
                 end
             end
 
-            chosen_card = chosen_card or pseudorandom_element(G.deck.cards, pseudoseed(joker_internal_name))
+            if not chosen_card and #G.deck.cards > 0 then
+                chosen_card = pseudorandom_element(G.deck.cards, pseudoseed(joker_internal_name))
+            end
 
             if chosen_card then
                 stay_flipped = stay_flipped or (G.GAME and G.GAME.blind and G.GAME.blind:stay_flipped(to, chosen_card))
