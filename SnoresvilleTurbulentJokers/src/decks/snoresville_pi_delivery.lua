@@ -1,4 +1,3 @@
--- used to template
 local deck_internal_name = "snoresville_pi_delivery"
 local deck_display_name = "Pi Delivery"
 

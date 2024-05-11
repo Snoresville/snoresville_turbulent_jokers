@@ -7,8 +7,7 @@ local function assert_asset_exists(asset_name)
     and love.filesystem.exists(mod_path.."assets/1x/"..asset_name..".png")
 end
 
-local function init_modded_jokers()
-    local jokers = require(mod_path.."src/joker_index")(mod_id)
+local function init_modded_jokers(jokers)
     local joker_objects = {}
 
     for _, joker_def in pairs(jokers) do
@@ -30,6 +29,8 @@ local function init_modded_jokers()
                 nil,
                 joker_def.soulPos
             )
+            joker_objects[joker_name].yes_pool_flag = joker_def.yes_pool_flag
+            joker_objects[joker_name].no_pool_flag = joker_def.no_pool_flag
         end
     end
 
@@ -86,34 +87,43 @@ local function init_modded_jokers()
     end
 end
 
-local function init_modded_decks()
-    local decks = require(mod_path.."src/deck_index")(mod_id)
+local function init_modded_decks(decks)
     local deck_setup_functions = {}
 
     for _, deck_def in pairs(decks) do
         local deck_name = deck_def.name
-        if config.blacklist_decks[deck_name] ~= true then
+        local deck_jokers = deck_def.setup_functions.add_deck_jokers()
+        local joker_blacklisted = false
+
+        for _, joker_def in ipairs(deck_jokers) do
+            if config.blacklist_jokers[string.sub(joker_def.name, 3)] then
+                joker_blacklisted = true
+                break
+            end
+        end
+
+        if not joker_blacklisted and config.blacklist_decks[deck_name] ~= true then
+            local sprite_slug = "b_"..deck_def.slug
+            deck_def.config.atlas = sprite_slug
+
+            if assert_asset_exists(sprite_slug) then
+                SMODS.Sprite:new(sprite_slug, mod_path, sprite_slug..".png", 71, 95, "asset_atli")
+                :register()
+            elseif config.fallback_sprite_name
+            and assert_asset_exists(config.fallback_sprite_name)then
+                SMODS.Sprite:new(sprite_slug, mod_path, config.fallback_sprite_name..".png", 71, 95, "asset_atli")
+                :register()
+            end
+
             SMODS.Deck:new(
                 deck_def.name,
                 deck_def.slug,
                 deck_def.config,
-                deck_def.sprite_pos,
+                {x = 0, y = 0}, -- Hardcoded
                 deck_def.loc_txt
             )
             :register()
             deck_setup_functions[deck_name] = deck_def.setup_functions
-
-            -- This doesnt work.
-
-            -- local sprite_slug = "b_"..deck_def.slug
-            -- if assert_asset_exists(sprite_slug) then
-            --     SMODS.Sprite:new(sprite_slug, mod_path, sprite_slug..".png", 71, 95, "asset_atli")
-            --     :register()
-            -- elseif config.fallback_sprite_name
-            -- and assert_asset_exists(config.fallback_sprite_name)then
-            --     SMODS.Sprite:new(sprite_slug, mod_path, config.fallback_sprite_name..".png", 71, 95, "asset_atli")
-            --     :register()
-            -- end
         end
     end
 
@@ -140,11 +150,12 @@ end
 
 local main = function(MOD_ID)
     mod_id = MOD_ID
-    config = require(SMODS.findModByID(mod_id).path.."src/config")
     mod_path = SMODS.findModByID(mod_id).path
+    config = NFS.load(mod_path.."src/config.lua")()
+    index = NFS.load(mod_path.."src/index.lua")()(MOD_ID)
 
-    init_modded_jokers()
-    init_modded_decks()
+    init_modded_jokers(index.jokers)
+    init_modded_decks(index.decks)
 end
 
 return main

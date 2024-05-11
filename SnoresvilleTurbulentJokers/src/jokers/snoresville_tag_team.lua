@@ -1,5 +1,5 @@
 local joker_name = "snoresville_tag_team"
-local tag_denominator = 2
+local tag_denominator = 4
 local tag_id = "tag_double"
 
 local joker = {

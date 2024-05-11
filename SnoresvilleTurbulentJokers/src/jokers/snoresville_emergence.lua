@@ -108,7 +108,7 @@ local joker = {
         name = "Emergence",
         text = {
             "If a scoring card is not a",
-            "{C:red}Red Seal{} {C:dark_edition}Polychrome{} {C:attention}Steel{} {C:hearts}King of Hearts{},",
+            "{C:red}Red Seal{} {C:dark_edition}Polychrome{} {C:inactive}Steel{} {C:hearts}King of Hearts{},",
             "partially transform the card towards it,",
             "{C:green}#1# in #2#{} chance of breaking the card instead."
         }

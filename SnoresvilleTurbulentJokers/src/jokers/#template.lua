@@ -5,7 +5,11 @@ local joker_display_name = "Joker Name Here"
 local joker = {
     name = joker_internal_name,
     slug = joker_internal_name,
-    config = {},
+    config = {
+        extra = {
+
+        },
+    },
     spritePos = {x = 0, y = 0},
     soulPos = nil, -- {x = 1, y = 0}
     loc_txt = {
@@ -18,6 +22,8 @@ local joker = {
     blueprint_compat = true,
     eternal_compat = true,
     functions = {},
+    yes_pool_flag = nil, -- Restricted with this flag disabled
+    no_pool_flag = nil -- Restricted with this flag enabled
 }
 
 joker.loc_txt.text = {

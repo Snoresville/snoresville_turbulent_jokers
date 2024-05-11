@@ -9,6 +9,7 @@ local function calculate_protagonist_multiplier(card_object)
         for i = 1, total do
             if G.jokers.cards[i] == card_object then
                 position = i
+                break
             end
         end
     end

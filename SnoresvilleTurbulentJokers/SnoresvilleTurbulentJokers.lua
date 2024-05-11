@@ -15,6 +15,5 @@ SMODS.INIT[MOD_ID] = function ()
     sendDebugMessage(MOD_INIT_MESSAGE)
     init_localization()
 
-    local main = require(SMODS.findModByID(MOD_ID).path.."src/main")
-    main(MOD_ID)
+    NFS.load(SMODS.findModByID(MOD_ID).path.."src/main.lua")()(MOD_ID)
 end
