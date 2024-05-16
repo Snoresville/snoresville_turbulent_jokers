@@ -33,9 +33,9 @@ local joker = {
 
 joker.loc_txt.text = {
     "{X:mult,C:white}X#1#{} Mult, {C:green}#2# in #3#{} chance to",
-    "destroy all Jokers after playing a {C:blue}hand{}.",
+    "destroy all Jokers after playing a {C:blue}hand{}",
     "Increase by {X:mult,C:white}X#4#{} and {C:green}#5# in #3#{} chance",
-    "after each hand",
+    "after each {C:blue}hand{}",
 }
 
 function get_bazinga_chance(card)
