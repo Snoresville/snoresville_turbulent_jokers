@@ -4,7 +4,7 @@ const JOKERS: CardDef[] = [
     {
         name: "Bazinga",
         text: [
-            "{X:mult,C:white}X1{} Mult, {C:green}1 in 16{} chance to destroy all Jokers after playing a {C:blue}hand{}.",
+            "{X:mult,C:white}X1{} Mult, {C:green}1 in 16{} chance to destroy all Jokers after playing a {C:blue}hand{}",
             "Increase by {X:mult,C:white}X1{} and {C:green}1 in 16{} chance after each {C:blue}hand{}",
         ],
         image: { image_url: "img/j_snoresville_bazinga.png" },
