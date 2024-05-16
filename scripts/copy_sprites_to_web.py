@@ -1,9 +1,9 @@
 import os
 import shutil
 
-repo_folder_path = os.path.abspath(os.getcwd()) + "\\.."
+repo_folder_path = os.path.abspath(__file__) + "\\..\\.."
 sprites_path = "aseprite"
-target_path = "docs\\img\\"
+target_path = "website\\public\\img\\"
 
 target_sprites = list(filter(lambda x: x[-6:] == "1x.png" or x[-6:] == "2x.png", os.listdir(repo_folder_path + "\\" + sprites_path)))
 

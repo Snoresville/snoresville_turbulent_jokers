@@ -4,3 +4,6 @@ SnoresvilleTurbulentJokers.zip
 # Symlinks
 SnoresvilleTurbulentJokers/assets/1x/*.png
 SnoresvilleTurbulentJokers/assets/2x/*.png
+
+# Web
+website/node_modules
