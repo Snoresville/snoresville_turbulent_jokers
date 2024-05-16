@@ -16,6 +16,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "eslint": "8.57.0",
     "eslint-plugin-vue": "9.26.0",
+    "gh-pages": "^6.1.1",
     "globals": "15.2.0",
     "typescript": "^5.2.2",
     "typescript-eslint": "7.9.0",
