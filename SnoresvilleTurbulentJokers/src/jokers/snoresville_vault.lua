@@ -1,5 +1,5 @@
-local joker_internal_name = "snoresville_vault"
-local joker_display_name = "Vault"
+local internal_name = "vault"
+local display_name = "Vault"
 local pct_interest = 2
 
 local function get_interest(joker)
@@ -7,14 +7,10 @@ local function get_interest(joker)
 end
 
 local joker = {
-    name = joker_internal_name,
-    slug = joker_internal_name,
+    name = internal_name,
     config = {},
     spritePos = {x = 0, y = 0},
     soulPos = nil, -- {x = 1, y = 0}
-    loc_txt = {
-        name = joker_display_name,
-    },
     rarity = 2,
     cost = 100,
     unlocked = true,
@@ -24,23 +20,30 @@ local joker = {
     functions = {},
 }
 
-joker.loc_txt.text = {
-    "After every hand played,",
-    "increase this Joker's sell price",
-    "by {C:attention}#1#%{}, rounded up",
-    "{C:inactive}(Current interest: {C:money}$#2#{C:inactive})",
+joker.loc_txt = {
+    name = display_name,
+    text = {
+        "After every hand played,",
+        "increase this Joker's sell price",
+        "by {C:attention}#1#%{}, rounded up",
+        "{C:inactive}(Current interest: {C:money}$#2#{C:inactive})",
+    }
 }
 
-joker.functions.loc_def = function(self)
-    return {pct_interest, get_interest(self)}
+joker.functions.loc_vars = function(self, info_queue, card)
+    return {
+        vars = {
+            pct_interest, get_interest(card)
+        }
+    }
 end
 
-joker.functions.calculate = function(self, context)
+joker.functions.calculate = function(self, card, context)
     if SMODS.end_calculate_context(context) and not context.blueprint then
-        local difference = get_interest(self)
-        self.ability.extra_value = self.ability.extra_value + difference
-        self:set_cost()
-        card_eval_status_text(self, 'dollars', difference, nil, nil, {})
+        local difference = get_interest(card)
+        card.ability.extra_value = card.ability.extra_value + difference
+        card:set_cost()
+        card_eval_status_text(card, 'dollars', difference, nil, nil, {})
     end
 end
 

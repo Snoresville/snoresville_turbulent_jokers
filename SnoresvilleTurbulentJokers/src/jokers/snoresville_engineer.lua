@@ -1,21 +1,19 @@
-local joker_internal_name = "snoresville_engineer"
-local joker_display_name = "Engineer"
-local sentry_internal_name = "snoresville_sentry_gun"
+local internal_name = "engineer"
+local display_name = "Engineer"
+local sentry_internal_name = "sentry_gun"
+
+local prefix = G.SnoresvilleTurbulentJokers_getConfig().prefix
 
 local message_build_failure = "Cannot Build!"
 local message_build_success = "Built!"
 local message_upgrade = "Upgrade!"
 
 local joker = {
-    name = joker_internal_name,
-    slug = joker_internal_name,
+    name = internal_name,
     config = {
     },
     spritePos = {x = 0, y = 0},
     soulPos = nil, -- {x = 1, y = 0}
-    loc_txt = {
-        name = joker_display_name,
-    },
     rarity = 2,
     cost = 7,
     unlocked = true,
@@ -25,21 +23,24 @@ local joker = {
     functions = {},
 }
 
-joker.loc_txt.text = {
-    "At the beginning of a blind,",
-    "build or upgrade a {C:attention}Sentry Gun{}",
-    "The Sentry Gun {C:attention}inherits{} the Engineer's {C:dark_edition}edition{}",
-    "{C:inactive}(Must have room to build){}"
+joker.loc_txt = {
+    name = display_name,
+    text = {
+        "At the beginning of a blind,",
+        "build or upgrade a {C:attention}Sentry Gun{}",
+        "The Sentry Gun {C:attention}inherits{} the Engineer's {C:dark_edition}edition{}",
+        "{C:inactive}(Must have room to build){}"
+    }
 }
 
-joker.functions.loc_def = function(self)
+joker.functions.loc_vars = function(self)
     return {}
 end
 
 local find_sentry = function()
     if not G.jokers or not G.jokers.cards then return end
     for _, joker in ipairs(G.jokers.cards) do
-        if joker.ability.name == sentry_internal_name then
+        if joker.ability.name == 'j_'..prefix..'_'..sentry_internal_name then
             return joker
         end
     end
@@ -56,7 +57,7 @@ local sentry_maintenance = function(self)
             return
         end
 
-        local sentry = add_joker('j_'..sentry_internal_name, self.edition and self.edition.type, nil, self.ability.eternal)
+        local sentry = add_joker('j_'..prefix..'_'..sentry_internal_name, self.edition and self.edition.type, nil, self.ability.eternal)
         self:juice_up()
         card_eval_status_text(sentry, 'extra', nil, nil, nil, {
             message = message_build_success,
@@ -71,13 +72,13 @@ local sentry_maintenance = function(self)
     end
 end
 
-joker.functions.calculate = function(self, context)
+joker.functions.calculate = function(self, card, context)
     if context.setting_blind then
         G.E_MANAGER:add_event(
             Event({
                 trigger = 'after',
                 func = function()
-                    sentry_maintenance(self)
+                    sentry_maintenance(card)
                     return true
                 end
             })

@@ -1,5 +1,5 @@
-local joker_internal_name = "snoresville_cyka_balatro"
-local joker_display_name = "Cyka Balatro"
+local internal_name = "cyka_balatro"
+local display_name = "Cyka Balatro"
 
 local gamble_cost = 1
 local gamble_mult_chance = 5
@@ -8,8 +8,7 @@ local gamble_money_chance = 15
 local gamble_money_bonus = 20
 
 local joker = {
-    name = joker_internal_name,
-    slug = joker_internal_name,
+    name = internal_name,
     config = {
         extra = {
             mult_gained = 0
@@ -17,9 +16,6 @@ local joker = {
     },
     spritePos = {x = 0, y = 0},
     soulPos = nil, -- {x = 1, y = 0}
-    loc_txt = {
-        name = joker_display_name,
-    },
     rarity = 1,
     cost = 4,
     unlocked = true,
@@ -29,30 +25,35 @@ local joker = {
     functions = {}
 }
 
-joker.loc_txt.text = {
-    "On each {C:blue}hand{} played,",
-    "gamble {C:money}$#1#{} to gain the following:",
-    "{C:green}#2# in #3#{} chance to score {C:mult}+#4#{} Mult",
-    "{C:green}#2# in #5#{} chance to win {C:money}$#6#{}",
+joker.loc_txt = {
+    name = display_name,
+    text = {
+        "On each {C:blue}hand{} played,",
+        "gamble {C:money}$#1#{} to gain the following:",
+        "{C:green}#2# in #3#{} chance to score {C:mult}+#4#{} Mult",
+        "{C:green}#2# in #5#{} chance to win {C:money}$#6#{}",
+    }
 }
 
-joker.functions.loc_def = function(self)
+joker.functions.loc_vars = function(self)
     return {
-        gamble_cost,
-        G.GAME.probabilities.normal,
-        gamble_mult_chance,
-        gamble_mult_bonus,
-        gamble_money_chance,
-        gamble_money_bonus,
+        vars = {
+            gamble_cost,
+            G.GAME.probabilities.normal,
+            gamble_mult_chance,
+            gamble_mult_bonus,
+            gamble_money_chance,
+            gamble_money_bonus,
+        }
     }
 end
 
 function go_gambling(self)
-    if pseudorandom(joker_internal_name.."_mult_bonus") < G.GAME.probabilities.normal / gamble_mult_chance then
+    if pseudorandom(internal_name.."_mult_bonus") < G.GAME.probabilities.normal / gamble_mult_chance then
         self.ability.extra.mult_gained = self.ability.extra.mult_gained + gamble_mult_bonus
     end
 
-    if pseudorandom(joker_internal_name.."_money_bonus") < G.GAME.probabilities.normal / gamble_money_chance then
+    if pseudorandom(internal_name.."_money_bonus") < G.GAME.probabilities.normal / gamble_money_chance then
         G.E_MANAGER:add_event(Event({delay = 1, func = function()
             self:juice_up()
             ease_dollars(gamble_money_bonus)
@@ -61,16 +62,16 @@ function go_gambling(self)
     end
 end
 
-joker.functions.calculate = function(self, context)
+joker.functions.calculate = function(self, card, context)
     if context.before and context.scoring_hand then
         if G.GAME.dollars - gamble_cost >= 0 then
             ease_dollars(-gamble_cost)
-            go_gambling(self)
+            go_gambling(card)
         end
     end
 
     if SMODS.end_calculate_context(context) and context.full_hand then
-        local bonus_mult = self.ability.extra.mult_gained
+        local bonus_mult = card.ability.extra.mult_gained
         if bonus_mult > 0 then
             return {
                 message = localize{type='variable',key='a_mult',vars={bonus_mult}},
@@ -80,7 +81,7 @@ joker.functions.calculate = function(self, context)
     end
 
     if context.after then
-        self.ability.extra.mult_gained = 0
+        card.ability.extra.mult_gained = 0
     end
 end
 

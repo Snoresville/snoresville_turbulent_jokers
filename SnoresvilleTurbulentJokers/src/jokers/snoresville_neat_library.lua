@@ -1,15 +1,13 @@
-local joker_internal_name = "snoresville_neat_library"
-local joker_display_name = "Ordered Library"
+local internal_name = "neat_library"
+local display_name = "Ordered Library"
+
+local prefix = G.SnoresvilleTurbulentJokers_getConfig().prefix
 
 local joker = {
-    name = joker_internal_name,
-    slug = joker_internal_name,
+    name = internal_name,
     config = {},
     spritePos = {x = 0, y = 0},
     soulPos = nil, -- {x = 1, y = 0}
-    loc_txt = {
-        name = joker_display_name,
-    },
     rarity = 2,
     cost = 6,
     unlocked = true,
@@ -19,12 +17,15 @@ local joker = {
     functions = {},
 }
 
-joker.loc_txt.text = {
-    "Whenever possible, you will",
-    "draw cards of {C:attention}unique rank{}",
+joker.loc_txt = {
+    name = display_name,
+    text = {
+        "Whenever possible, you will",
+        "draw cards of {C:attention}unique rank{}",
+    }
 }
 
-joker.functions.loc_def = function(self)
+joker.functions.loc_vars = function(self)
     return {}
 end
 
@@ -55,7 +56,7 @@ local function draw_card_neat_library(from, to, percent, dir, sort, card, delay,
             end
 
             if not chosen_card and #G.deck.cards > 0 then
-                chosen_card = pseudorandom_element(G.deck.cards, pseudoseed(joker_internal_name))
+                chosen_card = pseudorandom_element(G.deck.cards, pseudoseed(internal_name))
             end
 
             if chosen_card then
@@ -89,7 +90,7 @@ joker.ref_replacement = function()
     local draw_card_ref = draw_card
     draw_card = function(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
         delay = delay or 0.1
-        if next(find_joker(joker_internal_name))
+        if next(find_joker("j_"..prefix.."_"..internal_name))
         and from == G.deck
         and to == G.hand
         and card == nil then

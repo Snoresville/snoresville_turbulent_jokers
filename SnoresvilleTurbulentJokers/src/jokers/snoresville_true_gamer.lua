@@ -1,5 +1,8 @@
-local joker_name = "snoresville_true_gamer"
+local internal_name = "true_gamer"
 local display_name = "True Gamer"
+
+local prefix = G.SnoresvilleTurbulentJokers_getConfig().prefix
+
 local beaten_message = "Beaten!"
 local base_chips = 25
 
@@ -45,58 +48,63 @@ local function beat_gamer(self, beating_card)
 end
 
 local joker = {
-    name = joker_name,
-    slug = joker_name,
+    name = internal_name,
     config = {
         extra = {
             players_beaten = 0
         }
     },
     spritePos = {x = 0, y = 0},
-    loc_txt = {
-        name = display_name,
-        text = {
-            "At the start of a blind,",
-            "fight all {C:attention}#1#{}s,",
-            "and double the {C:blue}Chips{} scored",
-            "for each {C:attention}#1#{} beaten",
-            "{C:inactive}(Currently {C:blue}+#2# Chips{C:inactive})",
-        }
-    },
     rarity = 1,
     cost = 4,
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
     eternal_compat = true,
-    functions = {
-        loc_def = function(self)
-            return {display_name, current_chips(self.ability.extra.players_beaten)}
-        end,
-        calculate = function(self, context)
-            if context.setting_blind and not context.blueprint and not self.getting_sliced then
-                local beating_card = nil
-                for i = 1, #G.jokers.cards do
-                    local card = G.jokers.cards[i]
-                    if card ~= self
-                    and not card.ability.eternal
-                    and not card.getting_sliced
-                    and card.ability.name == joker_name
-                    and self.ability.extra.players_beaten >= card.ability.extra.players_beaten then
-                        beat_gamer(self, card)
-                    end
-                end
-            end
+    functions = {},
+}
 
-            if SMODS.end_calculate_context(context) and context.full_hand and not self.getting_sliced then
-                local bonus_chips = current_chips(self.ability.extra.players_beaten)
-                return {
-                    message = localize{type='variable',key='a_chips',vars={bonus_chips}},
-                    chip_mod = bonus_chips
-                }
+joker.loc_txt = {
+    name = display_name,
+    text = {
+        "At the start of a blind,",
+        "fight all {C:attention}#1#{}s,",
+        "and double the {C:blue}Chips{} scored",
+        "for each {C:attention}#1#{} beaten",
+        "{C:inactive}(Currently {C:blue}+#2# Chips{C:inactive})",
+    }
+}
+
+joker.functions.loc_vars = function(self, info_queue, card)
+    return {
+        vars = {
+            display_name, current_chips(card.ability.extra.players_beaten)
+        }
+    }
+end
+
+joker.functions.calculate = function(self, card, context)
+    if context.setting_blind and not context.blueprint and not card.getting_sliced then
+        for i = 1, #G.jokers.cards do
+            local other_card = G.jokers.cards[i]
+            if other_card ~= card
+            and not other_card.ability.eternal
+            and not other_card.getting_sliced
+            and other_card.ability.name == "j_"..prefix.."_"..internal_name
+            and card.ability.extra.players_beaten >= other_card.ability.extra.players_beaten then
+                beat_gamer(card, other_card)
             end
         end
-    },
-}
+    end
+
+    if SMODS.end_calculate_context(context) and context.full_hand and not card.getting_sliced then
+        local bonus_chips = current_chips(card.ability.extra.players_beaten)
+        return {
+            message = localize{type='variable',key='a_chips',vars={bonus_chips}},
+            chip_mod = bonus_chips
+        }
+    end
+end
+
 
 return joker

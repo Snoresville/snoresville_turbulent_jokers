@@ -1,43 +1,43 @@
-local deck_internal_name = "snoresville_ultimate_gamer"
-local deck_display_name = "Gamer's Journey"
+local internal_name = "ultimate_gamer"
+local display_name = "Gamer's Journey"
 
 local deck = {
-    name = deck_internal_name,
-    slug = deck_internal_name,
+    name = internal_name,
     config = {},
     sprite_pos = {x = 2, y = 1},
-    loc_txt = {
-        name = deck_display_name,
-    },
     setup_functions = {}
 }
 
-deck.loc_txt.text = {
-    "Start with 4",
-    "{C:attention}True Gamer{}s,",
-    "and a {C:attention}Showman"
+deck.loc_txt = {
+    name = display_name,
+    text = {
+        "Start with 4",
+        "{C:attention}True Gamer{}s,",
+        "and a {C:attention}Showman"
+    }
 }
 
 deck.setup_functions.modify_base_cards = function(base_cards)
     return base_cards
 end
 
-local function deck_joker(name, edition, silent, eternal)
+local function deck_joker(name, edition, silent, eternal, modpack)
     return {
         name = name,
         edition = edition,
         silent = silent,
-        eternal = eternal
+        eternal = eternal,
+        modpack = modpack,
     }
 end
 
 deck.setup_functions.add_deck_jokers = function()
     return {
-        deck_joker("j_snoresville_true_gamer", nil, nil, false),
-        deck_joker("j_snoresville_true_gamer", nil, nil, false),
-        deck_joker("j_snoresville_true_gamer", nil, nil, false),
-        deck_joker("j_snoresville_true_gamer", nil, nil, false),
-        deck_joker("j_ring_master", nil, nil, false),
+        deck_joker("true_gamer", nil, nil, false, true),
+        deck_joker("true_gamer", nil, nil, false, true),
+        deck_joker("true_gamer", nil, nil, false, true),
+        deck_joker("true_gamer", nil, nil, false, true),
+        deck_joker("ring_master", nil, nil, false, false),
     }
 end
 

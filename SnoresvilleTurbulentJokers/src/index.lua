@@ -14,7 +14,7 @@ local function get_objects(objects_path)
 end
 
 local index = function(MOD_ID)
-    MOD_PATH = SMODS.findModByID(MOD_ID).path
+    MOD_PATH = SMODS.Mods[MOD_ID].path
 
     return {
         jokers = get_objects("src/jokers"),

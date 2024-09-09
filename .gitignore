@@ -1,3 +1,7 @@
+# Balatro source code: extract from game files
+# Steamodded for additional API support: https://github.com/Steamopollys/Steamodded
+api
+
 # Release File
 SnoresvilleTurbulentJokers.zip
 
@@ -7,3 +11,4 @@ SnoresvilleTurbulentJokers/assets/2x/*.png
 
 # Web
 website/node_modules
+website/dist/*

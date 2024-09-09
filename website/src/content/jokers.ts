@@ -43,7 +43,7 @@ const JOKERS: CardDef[] = [
             "Gain {C:money}$1{} if you would win",
         ],
         image: { image_url: "img/j_snoresville_edgeworth.png" },
-        rarity: "Common",
+        rarity: "Uncommon",
     },
     {
         name: "Emergence",
@@ -139,7 +139,7 @@ const JOKERS: CardDef[] = [
             "{C:green}1 in 4 chance{} to gain a {C:attention}Double Tag{} for every {C:attention}two cards{} of the {C:attention}same rank{} contained in a played hand",
         ],
         image: { image_url: "img/j_snoresville_tag_team.png" },
-        rarity: "Uncommon",
+        rarity: "Rare",
     },
     {
         name: "Seasonings",

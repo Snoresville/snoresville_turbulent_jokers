@@ -1,10 +1,11 @@
 local config = {
+    prefix = "snoresville",
     fallback_sprite_name = "j_snoresville_missing",
     blacklist_jokers = {
-        -- snoresville_emergence = true
+        -- emergence = true
     },
     blacklist_decks = {
-        -- snoresville_metamorphosis = true
+        -- metamorphosis = true
     }
 }
 

@@ -1,19 +1,17 @@
-local joker_internal_name = "snoresville_bug"
-local joker_display_name = "Bug"
+local internal_name = "bug"
+local display_name = "Bug"
+
+local prefix = G.SnoresvilleTurbulentJokers_getConfig().prefix
 
 local spawn_probability = 128
 local bug_message = "Bug!"
 
 local joker = {
-    name = joker_internal_name,
-    slug = joker_internal_name,
+    name = internal_name,
     config = {
     },
     spritePos = {x = 0, y = 0},
     soulPos = nil, -- {x = 1, y = 0}
-    loc_txt = {
-        name = joker_display_name,
-    },
     rarity = 1,
     cost = 2,
     unlocked = true,
@@ -21,22 +19,33 @@ local joker = {
     blueprint_compat = false,
     eternal_compat = true,
     functions = {},
-    yes_pool_flag = joker_internal_name -- Restricted with this flag disabled
+    yes_pool_flag = internal_name -- Restricted with this flag disabled
 }
 
-joker.loc_txt.text = {
-    "{C:green}#1# in #2#{} chance to appear,",
-    "does not require free space",
+joker.loc_txt = {
+    name = display_name,
+    text = {
+        "{C:green}#1# in #2#{} chance to appear,",
+        "does not require free space",
+    }
 }
 
-joker.functions.loc_def = function(self)
-    return {G.GAME.probabilities.normal, spawn_probability}
+joker.functions.loc_vars = function(self)
+    return {
+        vars = {
+            G.GAME.probabilities.normal, spawn_probability
+        }
+    }
 end
 
 local roll_spawning_bug = function()
-    local success = pseudorandom('j_'..joker_internal_name) < G.GAME.probabilities.normal/spawn_probability
+    local edition = nil
+    local success = pseudorandom('j_'..prefix..'_'..internal_name) < G.GAME.probabilities.normal/spawn_probability
+
     if success then
-        local bug = add_joker('j_'..joker_internal_name)
+        local edition_roll = poll_edition()
+        local bug = add_joker('j_'..prefix..'_'..internal_name, edition)
+        bug:set_edition(edition_roll)
         G.E_MANAGER:add_event(Event({
             func = function()
                 play_sound('tarot1')
