@@ -9,24 +9,26 @@ local function assert_asset_exists(asset_name)
     return info1 and info2
 end
 
-local function create_atlas(slug, asset_name)
+local function try_create_atlas(slug, asset_name)
+    local atlas
     if assert_asset_exists(asset_name) then
-        SMODS.Atlas{
+        atlas = SMODS.Atlas{
             key = slug,
             path = asset_name..".png",
             px = 71,
             py = 95,
         }
-    -- Atlas here
     elseif config.fallback_sprite_name
     and assert_asset_exists(config.fallback_sprite_name) then
-        SMODS.Atlas{
-            key = asset_name,
+        atlas = SMODS.Atlas{
+            key = slug,
             path = config.fallback_sprite_name..".png",
             px = 71,
             py = 95,
         }
     end
+
+    return atlas and true or false
 end
 
 local function init_modded_jokers(jokers)
@@ -49,6 +51,8 @@ local function init_modded_jokers(jokers)
 
     for _, def in ipairs(joker_sorted) do
         local name = def.name
+        local asset_name = "j_"..config.prefix.."_"..name
+        local asset_exists = try_create_atlas(name, asset_name)
 
         local joker = SMODS.Joker{
             key = name,
@@ -62,7 +66,7 @@ local function init_modded_jokers(jokers)
             blueprint_compat = def.blueprint_compat,
             eternal_compat = def.eternal_compat,
             soul_pos = def.soulPos,
-            atlas = name,
+            atlas = asset_exists and name,
             yes_pool_flag = def.yes_pool_flag,
             no_pool_flag = def.no_pool_flag,
         }
@@ -75,8 +79,6 @@ local function init_modded_jokers(jokers)
         if def.ref_replacement then
             def.ref_replacement()
         end
-
-        create_atlas(name, "j_"..config.prefix.."_"..name)
     end
 end
 
@@ -95,13 +97,15 @@ local function init_modded_decks(decks)
 
         if not joker_blacklisted and config.blacklist_decks[deck_name] ~= true then
             local name = def.name
+            local asset_name = "b_"..config.prefix.."_"..name
+            local asset_exists = try_create_atlas(name, asset_name)
 
             SMODS.Back{
                 key = def.name,
                 pos = {x = 0, y = 0}, -- Hardcoded
                 config = def.config,
                 loc_txt = def.loc_txt,
-                atlas = name,
+                atlas = asset_exists and name,
                 apply = function()
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -118,8 +122,6 @@ local function init_modded_decks(decks)
                     }))
                 end
             }
-
-            create_atlas(name, "b_"..config.prefix.."_"..name)
         end
     end
 end
