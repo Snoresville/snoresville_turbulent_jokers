@@ -23,7 +23,7 @@ const JOKERS: CardDef[] = [
     {
         name: "Bug",
         text: [
-            "{C:green}1 in 128{} chance to appear, does not require free space",
+            "Fixed {C:green}1 in 64{} chance to appear, does not require free space",
         ],
         image: { image_url: "img/j_snoresville_bug.png" },
         rarity: "Common",
