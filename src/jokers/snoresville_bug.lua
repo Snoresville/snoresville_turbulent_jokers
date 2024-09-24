@@ -3,7 +3,7 @@ local display_name = "Bug"
 
 local prefix = G.SnoresvilleTurbulentJokers_getConfig().prefix
 
-local spawn_probability = 128
+local spawn_probability = 64
 local bug_message = "Bug!"
 
 local joker = {
@@ -25,7 +25,7 @@ local joker = {
 joker.loc_txt = {
     name = display_name,
     text = {
-        "{C:green}#1# in #2#{} chance to appear,",
+        "Fixed {C:green}#1# in #2#{} chance to appear,",
         "does not require free space",
     }
 }
@@ -33,14 +33,14 @@ joker.loc_txt = {
 joker.functions.loc_vars = function(self)
     return {
         vars = {
-            G.GAME.probabilities.normal, spawn_probability
+            1, spawn_probability
         }
     }
 end
 
 local roll_spawning_bug = function()
     local edition = nil
-    local success = pseudorandom('j_'..prefix..'_'..internal_name) < G.GAME.probabilities.normal/spawn_probability
+    local success = pseudorandom('j_'..prefix..'_'..internal_name) < 1/spawn_probability
 
     if success then
         local edition_roll = poll_edition()

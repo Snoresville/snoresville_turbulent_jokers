@@ -25,10 +25,19 @@ joker.loc_txt = {
     }
 }
 
-joker.functions.loc_vars = function(self)
+local function get_bonus_mult(card)
+    local current_mult = bonus_mult
+    if card.edition and card.edition.negative then
+        current_mult = current_mult * -1
+    end
+    return current_mult
+end
+
+joker.functions.loc_vars = function(self, info_queue, card)
+    local calculated_mult = get_bonus_mult(card)
     return {
         vars = {
-            bonus_mult >= 0 and "+"..bonus_mult or bonus_mult, extra_joker_slots
+            calculated_mult >= 0 and "+"..calculated_mult or calculated_mult, extra_joker_slots
         }
     }
 end
@@ -37,9 +46,11 @@ joker.functions.calculate = function(self, card, context)
     -- if else if else if else if else if else in state_events.lua
     -- this function is a god send
     if SMODS.end_calculate_context(context) and context.full_hand then
+        local calculated_mult = get_bonus_mult(card)
+
         return {
-            message = localize{type='variable',key='a_mult',vars={bonus_mult}},
-            mult_mod = bonus_mult
+            message = localize{type='variable',key='a_mult',vars={calculated_mult}},
+            mult_mod = calculated_mult
         }
     end
 end

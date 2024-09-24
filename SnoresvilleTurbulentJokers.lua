@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: they are very good jokers
 --- BADGE_COLOUR: FFA500
 --- DISPLAY_NAME: Turbulent Jokers
---- VERSION: 1.0.0
+--- VERSION: 1.1.2
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
