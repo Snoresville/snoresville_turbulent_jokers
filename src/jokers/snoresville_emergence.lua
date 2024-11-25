@@ -37,7 +37,7 @@ local get_card_value_code = function(card)
 end
 
 local get_card_suit_code = function(card)
-    return string.sub(card.base.suit, 1, 1)
+    return SMODS.Suits[card.base.suit].card_key
 end
 
 local card_is_rspskoh = function(card)
